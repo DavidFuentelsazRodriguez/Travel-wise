@@ -1,0 +1,44 @@
+from django.db import models
+from django.core.validators import MinValueValidator, MaxValueValidator
+
+# Create your models here.
+
+class User(models.Model):
+    name = models.CharField(max_length=100)
+    
+    def __str__(self):
+        return self.name
+    
+class City(models.Model):
+    id = models.BigAutoField(primary_key=True)
+    name = models.CharField(max_length=100, unique=True)
+    
+    def __str__(self):
+        return self.name
+    
+class Activity(models.Model):
+    name = models.CharField(max_length=100)
+    description = models.CharField()
+    price = models.FloatField()
+    city = models.ForeignKey(
+        City,
+        on_delete=models.CASCADE,
+        null=True,
+        to_field='name'
+    )
+    duration = models.TimeField(null=True)
+    has_badge_excellence = models.BooleanField(null=True)
+    recommendation_rate = models.PositiveSmallIntegerField(
+        validators=[MinValueValidator(0), MaxValueValidator(100)],
+        null=True
+    )
+
+    def __str__(self):
+        return f"{self.name} - {self.price} - {self.duration}"
+    
+    
+class Rating(models.Model):
+    activity = models.ForeignKey(Activity, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    
+    
