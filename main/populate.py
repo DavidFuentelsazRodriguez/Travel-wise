@@ -1,18 +1,15 @@
 import os
 import sys
 
-# Agrega el directorio raíz del proyecto al PYTHONPATH
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-# Configura la variable de entorno DJANGO_SETTINGS_MODULE
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'travel_wise.settings')
 
-# Configura Django
 import django
 django.setup()
 
 
-from main.models import User, Rating, City, Activity
+from main.models import City, Activity
 from extract_data import extract_activities
 from datetime import datetime, timedelta
 
@@ -50,8 +47,6 @@ def populate_db():
     print('Actividades añadidas a la BD ' + str(Activity.objects.all().count()))
 
 def clear_db():
-    User.objects.all().delete()
-    Rating.objects.all().delete()
     Activity.objects.all().delete()
     City.objects.all().delete()
     
@@ -79,7 +74,4 @@ def parse_duration(duration_str):
     time_object = (datetime.min + total_time).time()  
     return time_object
 
-    
-populate_db()
-    
     

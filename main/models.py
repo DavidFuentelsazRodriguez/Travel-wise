@@ -2,12 +2,6 @@ from django.db import models
 from django.core.validators import MinValueValidator, MaxValueValidator
 
 # Create your models here.
-
-class User(models.Model):
-    name = models.CharField(max_length=100)
-    
-    def __str__(self):
-        return self.name
     
 class City(models.Model):
     id = models.BigAutoField(primary_key=True)
@@ -34,11 +28,8 @@ class Activity(models.Model):
     )
 
     def __str__(self):
-        return f"{self.name} - {self.price} - {self.duration}"
+        return f"{self.name} ; {self.description} ; {self.price} ; {self.city} ; {self.duration} ; {self.has_badge_excellence } ; {self.recommendation_rate}"
     
-    
-class Rating(models.Model):
-    activity = models.ForeignKey(Activity, on_delete=models.CASCADE)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+
     
     

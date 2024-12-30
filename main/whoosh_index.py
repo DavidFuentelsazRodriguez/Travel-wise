@@ -9,17 +9,22 @@ from datetime import datetime
 from whoosh.query import DateRange, TermRange
 
 from extract_data import extract_activities
-from populate import parse_duration
+from populate import parse_duration, populate_db
+from main.models import Activity, City
 
 INDEX_DIR = 'indexdir'
 
 def load_schema():
-    activities = extract_activities()
+    activities = list(Activity.objects.all())
+    if len(activities) == 0:
+        populate_db()
+        activities = list(Activity.objects.all())
+        
     schema = Schema(name=TEXT(stored=True),
                     description=TEXT(stored=True),
                     price=NUMERIC(float),
                     city=TEXT(stored=True, phrase=False),
-                    duration=DATETIME(stored=True),
+                    duration=NUMERIC(stored=True, sortable=True),
                     has_badge_excellence=BOOLEAN(stored=True),
                     recommendation_rate=NUMERIC(stored=True, sortable=True))
     
@@ -29,21 +34,15 @@ def load_schema():
         
     ix = create_in(INDEX_DIR, schema)
     writer = ix.writer()
+    
     for activity in activities:
-        writer.add_document(name=activity[0], description=activity[7], price=parse_price(activity[1]),
-                            city=parse_city(activity[4]), duration=parse_duration(activity[2]), has_badge_excellence=activity[6],
-                            recommendation_rate=parse_recommendation_rate(activity[5]))
+        writer.add_document(name=activity.name, description=activity.description, price=activity.price,
+                            city=activity.city.name, duration=duration_in_minutes(activity.duration), has_badge_excellence=activity.has_badge_excellence,
+                            recommendation_rate=activity.recommendation_rate)
     writer.commit()
-    print('INDICE CREADO',f'Número de eventos almacenados:{ix.reader().doc_count()}')
-
-def parse_price(str_price):
-    return float(str_price).split('€')[0].strip()
-
-def parse_city(city):
-    return city if city is not None else 'Unknown city'
-
-def parse_recommendation_rate(str_recommendation_rate):
-    return int(str_recommendation_rate) if str_recommendation_rate is not None else 0
-        
+    print('INDICE CREADO',f'Número de actividades almacenadas:{ix.reader().doc_count()}')
+    
+def duration_in_minutes(duration):
+    return duration.hour * 60 + duration.minute if duration else 0
 
 load_schema()
