@@ -8,8 +8,7 @@ from whoosh import qparser, query
 from datetime import datetime
 from whoosh.query import DateRange, TermRange
 
-from extract_data import extract_activities
-from populate import parse_duration, populate_db
+from main.populate import populate_db
 from main.models import Activity, City
 
 INDEX_DIR = 'indexdir'
@@ -40,9 +39,8 @@ def load_schema():
                             city=activity.city.name, duration=duration_in_minutes(activity.duration), has_badge_excellence=activity.has_badge_excellence,
                             recommendation_rate=activity.recommendation_rate)
     writer.commit()
-    print('INDICE CREADO',f'Número de actividades almacenadas:{ix.reader().doc_count()}')
+    created_index_msg = f'Indice creado exitosamente, se han añadido {ix.reader().doc_count()} actividades'
+    return created_index_msg
     
 def duration_in_minutes(duration):
     return duration.hour * 60 + duration.minute if duration else 0
-
-load_schema()

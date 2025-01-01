@@ -10,7 +10,7 @@ django.setup()
 
 
 from main.models import City, Activity
-from extract_data import extract_activities
+from main.extract_data import extract_activities
 from datetime import datetime, timedelta
 
 
@@ -43,8 +43,9 @@ def populate_db():
                                            has_badge_excellence=has_badge_excellence, recommendation_rate=recommendation_rate))
     
     Activity.objects.bulk_create(activities_to_load)
-    print('Ciudades añadidas a la BD ' + str(City.objects.all().count()))
-    print('Actividades añadidas a la BD ' + str(Activity.objects.all().count()))
+    loaded_cities_msg = 'Ciudades añadidas a la BD ' + str(City.objects.all().count())
+    loaded_activities_msg = 'Actividades añadidas a la BD ' + str(Activity.objects.all().count())
+    return loaded_cities_msg, loaded_activities_msg
 
 def clear_db():
     Activity.objects.all().delete()
@@ -52,7 +53,6 @@ def clear_db():
     
 
 def parse_duration(duration_str):
-    """Convierte una cadena de duración a un objeto datetime.time."""
     if not duration_str:
         return datetime.strptime("00:00", "%H:%M").time()
 
