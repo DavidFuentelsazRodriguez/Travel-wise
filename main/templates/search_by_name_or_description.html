@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Buscar actividades</title>
+</head>
+<body>
+    <h1><strong>Busca actividades por título o descripción</strong></h1>
+    
+
+    <form id='form' method="post" action="">{% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Buscar</button>
+    </form>
+    
+    
+    {% if activities %}
+        <h2>Resultados de búsqueda:</h2>
+        <ul>
+            {% for activity in activities %}
+                <li>
+                    <em>Nombre:</em><strong>{{ activity.name }}</strong><br>
+                    <em>Descripción:</em> {{ activity.description }}<br>
+                    <em>Ciudad:</em> {{ activity.city }}<br>
+                    <em>Precio:</em> {{ activity.price }} €<br>
+                    <em>Duración:</em> {{ activity.duration }} horas<br>
+                    <em>Recomendación:</em> {{ activity.recommendation_rate }}%<br>
+                    <em>Excelencia:</em> {{ activity.has_badge_excellence|yesno:"Sí,No" }}
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No se encontraron resultados.</p>
+    {% endif %}
+</body>
+</html>

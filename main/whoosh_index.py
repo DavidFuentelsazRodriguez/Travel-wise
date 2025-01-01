@@ -1,15 +1,10 @@
 import os 
 
-from whoosh.fields import Schema, TEXT, DATETIME, ID, KEYWORD, NUMERIC, BOOLEAN
-from whoosh.index import create_in, open_dir
-from whoosh.qparser import QueryParser, MultifieldParser, OrGroup
-from whoosh.query import NumericRange
-from whoosh import qparser, query
-from datetime import datetime
-from whoosh.query import DateRange, TermRange
+from whoosh.fields import Schema, TEXT, NUMERIC, BOOLEAN
+from whoosh.index import create_in
 
 from main.populate import populate_db
-from main.models import Activity, City
+from main.models import Activity
 
 INDEX_DIR = 'indexdir'
 
