@@ -16,7 +16,7 @@ def load_schema():
         
     schema = Schema(name=TEXT(stored=True),
                     description=TEXT(stored=True),
-                    price=NUMERIC(float),
+                    price=NUMERIC(float, stored=True),
                     city=TEXT(stored=True, phrase=False),
                     duration=NUMERIC(stored=True, sortable=True),
                     has_badge_excellence=BOOLEAN(stored=True),

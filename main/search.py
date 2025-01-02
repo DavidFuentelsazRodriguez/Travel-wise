@@ -15,7 +15,20 @@ def search_by_name_or_description(words):
     with ix.searcher() as searcher:
         query = MultifieldParser(['name','description'], ix.schema).parse(words)
         results = searcher.search(query, limit=None)
-        activities = [
+        activities = parse_results(results)
+    return activities
+
+def search_by_price(lower_price, higher_price):
+    ix = open_dir(INDEX_DIR)
+    with ix.searcher() as searcher:
+        query = NumericRange('price', start=lower_price, end=higher_price)
+        results = searcher.search(query, limit=None)
+        activities = parse_results(results)
+        return activities
+        
+
+def parse_results(results):
+    return [
             {
                 "name": hit.get("name", "N/A"),
                 "description": hit.get("description", "N/A"),
@@ -27,6 +40,3 @@ def search_by_name_or_description(words):
             }
             for hit in results
         ]
-    return activities
-
-    

@@ -2,8 +2,8 @@ from django.conf import settings
 from django.shortcuts import render
 from main.populate import populate_db
 from main.whoosh_index import load_schema
-from main.forms import SearchByNameOrDescriptionForm
-from main.search import search_by_name_or_description
+from main.forms import SearchByNameOrDescriptionForm, SearchByPriceForm
+from main.search import search_by_name_or_description, search_by_price
 
 # Create your views here.
 
@@ -30,3 +30,20 @@ def search_by_name_or_description_view(request):
             activities = search_by_name_or_description(keywords)
             
     return render(request, 'search_by_name_or_description.html', {'form': form, 'activities':activities});
+
+def search_by_price_view(request):
+    form = SearchByPriceForm()
+    lower_price = 0
+    higher_price = 100
+    activities = []
+    
+    if request.method == 'POST':
+        form = SearchByPriceForm(request.POST)
+        
+        if form.is_valid():
+            lower_price = form.cleaned_data['lower_price']
+            higher_price = form.cleaned_data['higher_price']
+            activities = search_by_price(lower_price,higher_price)
+            
+    return render(request, 'search_by_price.html', context={'form':form, 'lower_price':lower_price, 'higher_price':higher_price, 'activities':activities})
+             

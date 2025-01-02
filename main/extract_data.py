@@ -47,7 +47,7 @@ def fetch_activity_additional_details(activity_url):
 
     soup = BeautifulSoup(content, 'html.parser')
 
-    city = soup.find('a', class_='crumbLink__et23')
+    city = soup.find('span', class_='location__C9GX')
     city = city.get_text() if city else None
 
     recommendation_rate = soup.find('span', class_='recommendationLabel__EZ1b')

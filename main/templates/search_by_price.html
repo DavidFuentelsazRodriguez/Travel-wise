@@ -4,7 +4,7 @@
     <title>Buscar actividades</title>
 </head>
 <body>
-    <h1><strong>Busca actividades por título o descripción</strong></h1>
+    <h1><strong>Busca actividades por precio/persona</strong></h1>
     
 
     <form id='form' method="post" action="">{% csrf_token %}
@@ -14,17 +14,14 @@
     
     
     {% if activities %}
-        <h2>Resultados de búsqueda:</h2>
+        <h2>Actividades entre {{ lower_price }}€ y {{ higher_price }}€:</h2>
         <ul>
             {% for activity in activities %}
                 <li>
                     <em>Nombre:</em><strong>{{ activity.name }}</strong><br>
                     <em>Descripción:</em> {{ activity.description }}<br>
                     <em>Ciudad:</em> {{ activity.city }}<br>
-                    <em>Precio:</em> {{ activity.price }} €<br>
-                    <em>Duración:</em> {{ activity.duration }} minutos<br>
-                    <em>Recomendación:</em> {{ activity.recommendation_rate }}%<br>
-                    <em>Excelencia:</em> {{ activity.has_badge_excellence|yesno:"Sí,No" }}
+                    <em>Precio:</em><strong>{{ activity.price }} €</strong><br>
                 </li>
             {% endfor %}
         </ul>

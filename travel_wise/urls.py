@@ -23,5 +23,6 @@ urlpatterns = [
     path('', views.index),
     path('populate/', views.load_db),
     path('load_schema/', views.load_schema_data),
-    path('search', views.search_by_name_or_description_view)
+    path('search/', views.search_by_name_or_description_view),
+    path('search_by_price/', views.search_by_price_view)
 ]
