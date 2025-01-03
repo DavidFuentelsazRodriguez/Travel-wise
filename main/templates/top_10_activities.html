@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Actividades más recomendadas</title>
+</head>
+<body>
+    <h1><strong>Top 10 actividades según los usuarios</strong></h1>
+    
+    {% if activities %}
+        <h2>Actividades más recomendadas por los usuarios:</h2>
+        <ul>
+            {% for activity in activities %}
+                <li>
+                    <em>Nombre:</em><strong>{{ activity.name }}</strong><br>
+                    <em>Descripción:</em> {{ activity.description }}<br>
+                    <em>Ciudad:</em> {{ activity.city }}<br>
+                    <em>Precio:</em> {{ activity.price }} €<br>
+                    <em>Duración:</em> {{ activity.duration }} minutos<br>
+                    <em>Recomendación:</em> <strong>{{ activity.recommendation_rate }}%</strong><br>
+                    <em>Excelencia:</em> {{ activity.has_badge_excellence|yesno:"Sí,No" }}
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No se encontraron resultados.</p>
+    {% endif %}
+</body>
+</html>

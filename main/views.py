@@ -4,6 +4,7 @@ from main.populate import populate_db
 from main.whoosh_index import load_schema, duration_in_minutes
 from main.forms import SearchByNameOrDescriptionForm, SearchByPriceForm, SearchByDurationForm, SearchByCityForm
 from main.search import search_by_name_or_description, search_by_price, search_by_duration, search_by_city
+from main.models import Activity
 
 # Create your views here.
 
@@ -17,6 +18,10 @@ def load_db(request):
 def load_schema_data(request):
     loaded_index_msg = load_schema()
     return render(request, 'load_schema.html', {'loaded_index':loaded_index_msg})
+
+def top_10_activities(request):
+    activities = Activity.objects.order_by('-recommendation_rate')[:10]
+    return render(request, 'top_10_activities.html', context={'activities': activities})
 
 def search_by_name_or_description_view(request):
     form = SearchByNameOrDescriptionForm()
