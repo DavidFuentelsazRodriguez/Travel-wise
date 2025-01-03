@@ -23,6 +23,10 @@ def top_10_activities(request):
     activities = Activity.objects.order_by('-recommendation_rate')[:10]
     return render(request, 'top_10_activities.html', context={'activities': activities})
 
+def activities_with_badge_excellence(request):
+    activities = Activity.objects.filter(has_badge_excellence=True)
+    return render(request, 'activities_with_badge_excellence.html', context={'activities': activities})
+
 def search_by_name_or_description_view(request):
     form = SearchByNameOrDescriptionForm()
     activities = []
