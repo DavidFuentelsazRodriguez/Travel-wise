@@ -3,55 +3,124 @@
 <!DOCTYPE html>
 <html lang='es'>
   <head>
-	<meta charset='utf-8'>
-		<link rel="stylesheet" href="{{STATIC_URL}}css/uikit.min.css" />
-        <script src="{{STATIC_URL}}js/jquery.min.js"></script>
-        <script src="{{STATIC_URL}}js/uikit.min.js"></script>
+    <meta charset='utf-8'>
+    <link rel="stylesheet" href="{{STATIC_URL}}css/uikit.min.css" />
+    <script src="{{STATIC_URL}}js/jquery.min.js"></script>
+    <script src="{{STATIC_URL}}js/uikit.min.js"></script>
+    <style>
+        
+        body {
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            background: white; 
+            color: white; 
+            min-height: 100vh;
+        }
+
+        
+        .header-section {
+            background-color: #2c3e50; 
+            padding: 20px 0; 
+            text-align: center; 
+        }
+
+        .header-section h1 {
+            margin: 0;
+            font-family: 'Roboto', sans-serif;
+            font-size: 36px;
+            font-weight: bold;
+            color: white; 
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        
+        .uk-navbar-container {
+            background-color: #2c3e50; 
+            border-bottom: 2px solid #dfe6e9; 
+        }
+
+        
+        .uk-navbar-nav > li {
+            margin-right: 20px;
+        }
+
+        
+        .uk-navbar-nav > li > a, .uk-navbar-nav > li > strong {
+            color: white; 
+            text-decoration: none;
+        }
+
+        .uk-navbar-nav > li > a:hover {
+            color: #dfe6e9; 
+        }
+
+        
+        .uk-navbar-dropdown {
+            background-color: #2c3e50;
+        }
+
+        .uk-navbar-dropdown a {
+            color: white; 
+        }
+
+        .uk-navbar-dropdown a:hover {
+            color: #dfe6e9; 
+        }
+        
+         .background-image {
+            background: url('{{ STATIC_URL }}images/spain-landscape.jpg') no-repeat center center fixed;
+            background-size: cover; /* Ajustar la imagen al tamaño de la pantalla */
+            width: 100%;
+            height: calc(100vh - 80px); /* Altura dinámica (resta la altura del navbar y título) */
+            position: relative;
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap" rel="stylesheet">
   </head>
   <body>
-  
-
-	<h1>TRAVEL WISE - ACTIVIDADES EN ESPAÑA</h1>
-    <nav class="uk-navbar-container" uk-navbar>
-    <div class="uk-navbar-left">
-
-        <ul class="uk-navbar-nav">
-            <li class="uk-active"><strong>Inicio</strong>
-            <div class="uk-navbar-dropdown">
-                    <ul class="uk-nav uk-navbar-dropdown-nav">
-                        <li><a href="/populate">Poblar Base de Datos</a></li>
-                        <li><a href="/load_schema">Cargar Esquema</a></li>
-                    </ul>
-                </div>
-            </li>
-            <li class="uk-active"><strong>Destacados</strong>
-                <div class="uk-navbar-dropdown">
-                        <ul class="uk-nav uk-navbar-dropdown-nav">
-                            <li><a href="/best_activities">Top 10 actividades</a></li>
-                            <li><a href="/badge_of_excellence">Actividades con distintivo de excelencia</a></li>
-                        </ul>
-                    </div>
-                </li>
-           <li><strong>B&uacute;squedas</strong>
-                <div class="uk-navbar-dropdown">
-                    <ul class="uk-nav uk-navbar-dropdown-nav">
-						<li><a href="/search">Buscar por nombre o descripción</a></li>
-                        <li><a href="/search_by_price">Buscar por precio</a></li>
-                        <li><a href="/search_by_duration">Buscar por duración</a></li>
-                        <li><a href="/search_by_city">Buscar por ciudad</a></li>
-                    </ul>
-                </div>
-            </li>
-        </ul>
-
+    <div class="header-section">
+      <h1>TRAVEL WISE - ACTIVIDADES EN ESPAÑA</h1>
     </div>
-</nav>
-	    
+    <nav class="uk-navbar-container" uk-navbar>
+      <div class="uk-navbar-left">
+        <ul class="uk-navbar-nav">
+          <li class="uk-active">
+            <a href="#">Inicio</a>
+            <div class="uk-navbar-dropdown">
+              <ul class="uk-nav uk-navbar-dropdown-nav">
+                <li><a href="/populate">Poblar Base de Datos</a></li>
+                <li><a href="/load_schema">Cargar Esquema</a></li>
+              </ul>
+            </div>
+          </li>
+          <li class="uk-active">
+            <a href="#">Destacados</a>
+            <div class="uk-navbar-dropdown">
+              <ul class="uk-nav uk-navbar-dropdown-nav">
+                <li><a href="/best_activities">Top 10 actividades</a></li>
+                <li><a href="/badge_of_excellence">Actividades con distintivo de excelencia</a></li>
+              </ul>
+            </div>
+          </li>
+          <li class="uk-active">
+            <a href="#">B&uacute;squedas</a>
+            <div class="uk-navbar-dropdown">
+              <ul class="uk-nav uk-navbar-dropdown-nav">
+                <li><a href="/search">Buscar por nombre o descripción</a></li>
+                <li><a href="/search_by_price">Buscar por precio</a></li>
+                <li><a href="/search_by_duration">Buscar por duración</a></li>
+                <li><a href="/search_by_city">Buscar por ciudad</a></li>
+              </ul>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </nav>
 
-		<hr>
- 		
- 		<h1 >{% block titulo %} {% endblock %}</h1>
+    
+    <div class="background-image">
+       
+    </div>
 
-		{% block contenido %} {% endblock %}
   </body>
 </html>
