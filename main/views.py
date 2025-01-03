@@ -2,8 +2,8 @@ from django.conf import settings
 from django.shortcuts import render
 from main.populate import populate_db
 from main.whoosh_index import load_schema, duration_in_minutes
-from main.forms import SearchByNameOrDescriptionForm, SearchByPriceForm, SearchByDurationForm
-from main.search import search_by_name_or_description, search_by_price, search_by_duration
+from main.forms import SearchByNameOrDescriptionForm, SearchByPriceForm, SearchByDurationForm, SearchByCityForm
+from main.search import search_by_name_or_description, search_by_price, search_by_duration, search_by_city
 
 # Create your views here.
 
@@ -70,6 +70,21 @@ def search_by_duration_view(request):
             
     return render(request, 'search_by_duration.html', 
                   context={'form':form, 'hours':hours, 'minutes':minutes,'activities':activities})
+    
+def search_by_city_view(request):
+    form = SearchByCityForm()
+    city = ''
+    activities = []
+    
+    if request.method == 'POST':
+        form = SearchByCityForm(request.POST)
+        
+        if form.is_valid():
+            city = form.cleaned_data['city']
+            activities = search_by_city(city.name)
+            
+    return render(request, 'search_by_city.html', 
+                  context={'form':form, 'city':city, 'activities':activities})
 
 def parse_duration(hours, minutes):
         return hours * 60 + minutes

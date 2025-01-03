@@ -33,6 +33,14 @@ def search_by_duration(duration):
         results = searcher.search(query, limit=None)
         activities = parse_results(results)
         return activities
+    
+def search_by_city(city):
+    ix = open_dir(INDEX_DIR)
+    with ix.searcher() as searcher:
+        query = QueryParser('city', ix.schema).parse(city)
+        results = searcher.search(query, limit=None)
+        activities = parse_results(results)
+        return activities
 
 def parse_results(results):
     return [

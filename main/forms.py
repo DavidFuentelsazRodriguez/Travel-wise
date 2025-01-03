@@ -1,4 +1,5 @@
 from django import forms
+from main.models import City
 
 class SearchByNameOrDescriptionForm(forms.Form):
     keywords = forms.CharField(max_length=100,
@@ -22,3 +23,7 @@ class SearchByDurationForm(forms.Form):
     minutes = forms.IntegerField(label='Minutos',
                                 required=False,
                                 widget=forms.NumberInput(attrs={'placeholder':'Introduzca los minutos'}))
+    
+class SearchByCityForm(forms.Form):
+    cities = City.objects.exclude(name='Unknown City')
+    city = forms.ModelChoiceField(label='Escoge una ciudad', queryset=cities, widget=forms.Select(attrs={'class': 'form-select'})) 
