@@ -26,6 +26,13 @@ def search_by_price(lower_price, higher_price):
         activities = parse_results(results)
         return activities
         
+def search_by_duration(duration):
+    ix = open_dir(INDEX_DIR)
+    with ix.searcher() as searcher:
+        query = NumericRange('duration', start=0, end=duration)
+        results = searcher.search(query, limit=None)
+        activities = parse_results(results)
+        return activities
 
 def parse_results(results):
     return [

@@ -13,3 +13,12 @@ class SearchByPriceForm(forms.Form):
     higher_price = forms.FloatField(label='Precio máximo (€)',
                                    required=False,
                                    widget=forms.NumberInput(attrs={'placeholder':'100'}))
+    
+class SearchByDurationForm(forms.Form):
+    hours = forms.IntegerField(label='Horas',
+                             required=False,
+                             widget=forms.NumberInput(attrs={'placeholder':'Introduzca las horas'}))
+    
+    minutes = forms.IntegerField(label='Minutos',
+                                required=False,
+                                widget=forms.NumberInput(attrs={'placeholder':'Introduzca los minutos'}))

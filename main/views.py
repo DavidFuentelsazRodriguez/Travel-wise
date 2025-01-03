@@ -1,9 +1,9 @@
 from django.conf import settings
 from django.shortcuts import render
 from main.populate import populate_db
-from main.whoosh_index import load_schema
-from main.forms import SearchByNameOrDescriptionForm, SearchByPriceForm
-from main.search import search_by_name_or_description, search_by_price
+from main.whoosh_index import load_schema, duration_in_minutes
+from main.forms import SearchByNameOrDescriptionForm, SearchByPriceForm, SearchByDurationForm
+from main.search import search_by_name_or_description, search_by_price, search_by_duration
 
 # Create your views here.
 
@@ -46,4 +46,30 @@ def search_by_price_view(request):
             activities = search_by_price(lower_price,higher_price)
             
     return render(request, 'search_by_price.html', context={'form':form, 'lower_price':lower_price, 'higher_price':higher_price, 'activities':activities})
-             
+
+def search_by_duration_view(request):
+    form = SearchByDurationForm()
+    hours = 0
+    minutes = 0
+    activities = []
+    
+    if request.method == 'POST':
+        form = SearchByDurationForm(request.POST)
+        
+        if form.is_valid():
+            hours = form.cleaned_data['hours']
+            minutes = form.cleaned_data['minutes']
+            if not hours:
+                hours = 0
+        
+            if not minutes:
+                minutes = 0
+            
+            duration_in_minutes = parse_duration(hours, minutes)
+            activities = search_by_duration(duration_in_minutes)
+            
+    return render(request, 'search_by_duration.html', 
+                  context={'form':form, 'hours':hours, 'minutes':minutes,'activities':activities})
+
+def parse_duration(hours, minutes):
+        return hours * 60 + minutes
