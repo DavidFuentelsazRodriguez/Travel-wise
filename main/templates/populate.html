@@ -1,23 +1,23 @@
-{% load static %}
-
 <!DOCTYPE html>
-<html lang='es'>
+<html lang="es">
 <head>
-    <meta charset="utf-8">
-    <link rel="stylesheet" href="{{STATIC_URL}}css/uikit.min.css" />
-    <script src="{{STATIC_URL}}js/jquery.min.js"></script>
-    <script src="{{STATIC_URL}}js/uikit.min.js"></script>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Población de Base de Datos</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 </head>
 <body>
-    <h1 class="uk-heading-small uk-text-center uk-margin-top">Base de Datos Poblada</h1>
-    <div class="uk-container uk-text-center uk-margin-large-top">
-        <p class="uk-text-lead">Registro:</p>
+    <header class="header">
+        <h1>Base de Datos Poblada</h1>
+    </header>
+
+    <div class="container">
         <ul class="uk-list uk-list-bullet">
-            <li><strong>{{ loaded_cities }}</strong></li>
-            <li><strong>{{ loaded_activities }}</strong></li>
+            <li class="highlight-text"><strong>{{ loaded_cities }}</strong></li>
+            <li class="highlight-text"><strong>{{ loaded_activities }}</strong></li>
         </ul>
-        <a href="/">Volver al Inicio</a>
+        <a href="{% url 'home' %}" class="btn-home">Volver a Inicio</a>
     </div>
 </body>
 </html>
