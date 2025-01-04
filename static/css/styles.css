@@ -114,3 +114,20 @@ form button:hover {
     display: block;
     margin: 5px 0;
 }
+
+.btn-home {
+    display: inline-block;
+    margin: 10px auto;
+    padding: 10px 15px;
+    background-color: #4CAF50;
+    color: white;
+    text-decoration: none;
+    font-size: 1rem;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s;
+}
+
+.btn-home:hover {
+    background-color: #45a049;
+}

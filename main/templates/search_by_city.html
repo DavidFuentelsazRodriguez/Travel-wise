@@ -27,9 +27,9 @@
                             <span><em>Nombre:</em> <strong>{{ activity.name }}</strong></span>
                             <span><em>Descripción:</em> {{ activity.description }}</span>
                             <span><em>Ciudad:</em> <strong>{{ activity.city }}</strong></span>
-                            <span><em>Precio:</em> <strong>{{ activity.price }} €</strong></span>
-                            <span><em>Duración:</em> <strong>{{ activity.duration }} minutos</strong></span>
-                            <span><em>Recomendación:</em> <strong>{{ activity.recommendation_rate }}%</strong></span>
+                            <span><em>Precio:</em> {{ activity.price }} €</span>
+                            <span><em>Duración:</em> {{ activity.duration }} minutos</span>
+                            <span><em>Recomendación:</em> {{ activity.recommendation_rate }}%</span>
                             <span><em>Excelencia:</em> {{ activity.has_badge_excellence|yesno:"Sí,No" }}</span>
                         </li>
                     {% endfor %}
@@ -37,6 +37,7 @@
             {% else %}
                 <p>No se encontraron resultados.</p>
             {% endif %}
+            <a href="{% url 'home' %}" class="btn-home">Volver a Inicio</a>
         </div>
     </div>
 </body>
