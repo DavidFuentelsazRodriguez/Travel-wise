@@ -3,7 +3,7 @@ from main.models import City
 
 class SearchByNameOrDescriptionForm(forms.Form):
     keywords = forms.CharField(max_length=100,
-                               label='Palabras clave',
+                               label='Introduzca los términos de búsqueda',
                                required=True,
                                widget=forms.TextInput(attrs={'placeholder': 'Introduce palabras clave'}))
     

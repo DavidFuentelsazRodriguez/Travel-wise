@@ -52,6 +52,12 @@ def search_by_price_view(request):
         if form.is_valid():
             lower_price = form.cleaned_data['lower_price']
             higher_price = form.cleaned_data['higher_price']
+            
+            if lower_price is None:
+                lower_price = 0
+            
+            if higher_price is None:
+                higher_price = 100
             activities = search_by_price(lower_price,higher_price)
             
     return render(request, 'search_by_price.html', context={'form':form, 'lower_price':lower_price, 'higher_price':higher_price, 'activities':activities})

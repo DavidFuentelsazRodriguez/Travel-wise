@@ -1,32 +1,40 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Buscar actividades</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 </head>
 <body>
-    <h1><strong>Busca actividades por precio/persona</strong></h1>
-    
+    <header>
+        <h1>Busca actividades por precio/persona</h1>
+    </header>
 
-    <form id='form' method="post" action="">{% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Buscar</button>
-    </form>
-    
-    
-    {% if activities %}
-        <h2>Actividades entre {{ lower_price }}€ y {{ higher_price }}€:</h2>
-        <ul>
-            {% for activity in activities %}
-                <li>
-                    <em>Nombre:</em><strong>{{ activity.name }}</strong><br>
-                    <em>Descripción:</em> {{ activity.description }}<br>
-                    <em>Ciudad:</em> {{ activity.city }}<br>
-                    <em>Precio:</em><strong>{{ activity.price }} €</strong><br>
-                </li>
-            {% endfor %}
-        </ul>
-    {% else %}
-        <p>No se encontraron resultados.</p>
-    {% endif %}
+    <div class="container">
+        <form id="form" method="post" action="">{% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Buscar</button>
+        </form>
+
+        <div class="results">
+            {% if activities %}
+                <h2>Actividades entre {{ lower_price }}€ y {{ higher_price }}€:</h2>
+                <ul>
+                    {% for activity in activities %}
+                        <li>
+                            <span><em>Nombre:</em> <strong>{{ activity.name }}</strong></span>
+                            <span><em>Descripción:</em> {{ activity.description }}</span>
+                            <span><em>Ciudad:</em> {{ activity.city }}</span>
+                            <span><em>Precio:</em> <strong>{{ activity.price }} €</strong></span>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>No se encontraron resultados.</p>
+            {% endif %}
+        </div>
+    </div>
 </body>
 </html>

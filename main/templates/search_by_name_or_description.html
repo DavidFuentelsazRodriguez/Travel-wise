@@ -1,35 +1,43 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Buscar actividades</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 </head>
 <body>
-    <h1><strong>Busca actividades por título o descripción</strong></h1>
-    
+    <header>
+        <h1>Búsqueda de actividades por título o descripción</h1>
+    </header>
 
-    <form id='form' method="post" action="">{% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Buscar</button>
-    </form>
-    
-    
-    {% if activities %}
-        <h2>Resultados de búsqueda:</h2>
-        <ul>
-            {% for activity in activities %}
-                <li>
-                    <em>Nombre:</em><strong>{{ activity.name }}</strong><br>
-                    <em>Descripción:</em> {{ activity.description }}<br>
-                    <em>Ciudad:</em> {{ activity.city }}<br>
-                    <em>Precio:</em> {{ activity.price }} €<br>
-                    <em>Duración:</em> {{ activity.duration }} minutos<br>
-                    <em>Recomendación:</em> {{ activity.recommendation_rate }}%<br>
-                    <em>Excelencia:</em> {{ activity.has_badge_excellence|yesno:"Sí,No" }}
-                </li>
-            {% endfor %}
-        </ul>
-    {% else %}
-        <p>No se encontraron resultados.</p>
-    {% endif %}
+    <div class="container">
+        <form id="form" method="post" action="">{% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Buscar</button>
+        </form>
+
+        <div class="results">
+            {% if activities %}
+                <h2>Resultados de la búsqueda:</h2>
+                <ul>
+                    {% for activity in activities %}
+                        <li>
+                            <span><em>Nombre:</em> <strong>{{ activity.name }}</strong></span>
+                            <span><em>Descripción:</em> {{ activity.description }}</span>
+                            <span><em>Ciudad:</em> {{ activity.city }}</span>
+                            <span><em>Precio:</em> {{ activity.price }} €</span>
+                            <span><em>Duración:</em> {{ activity.duration }} minutos</span>
+                            <span><em>Recomendación:</em> <strong>{{ activity.recommendation_rate }}%</strong></span>
+                            <span><em>Excelencia:</em> {{ activity.has_badge_excellence|yesno:"Sí,No" }}</span>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>No se encontraron resultados.</p>
+            {% endif %}
+        </div>
+    </div>
 </body>
 </html>
