@@ -1,27 +1,35 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Actividades más recomendadas</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}"/>
 </head>
 <body>
-    <h1><strong>Top 10 actividades según los usuarios</strong></h1>
-    
-    {% if activities %}
-        <h2>Actividades más recomendadas por los usuarios:</h2>
-        <ul>
-            {% for activity in activities %}
-                <li>
-                    <em>Nombre:</em><strong>{{ activity.name }}</strong><br>
-                    <em>Descripción:</em> {{ activity.description }}<br>
-                    <em>Ciudad:</em> {{ activity.city }}<br>
-                    <em>Precio:</em> {{ activity.price }} €<br>
-                    <em>Recomendación:</em> <strong>{{ activity.recommendation_rate }}%</strong><br>
-                    <em>Excelencia:</em> {{ activity.has_badge_excellence|yesno:"Sí,No" }}
-                </li>
-            {% endfor %}
-        </ul>
-    {% else %}
-        <p>No se encontraron resultados.</p>
-    {% endif %}
+    <header>
+        <h1>Top 10 Actividades según los Usuarios</h1>
+    </header>
+
+    <div class="container">
+        {% if activities %}
+            <h2>Actividades más recomendadas por los usuarios:</h2>
+            <ul>
+                {% for activity in activities %}
+                    <li>
+                        <span><em>Nombre:</em> <strong>{{ activity.name }}</strong></span>
+                        <span><em>Descripción:</em> {{ activity.description }}</span>
+                        <span><em>Ciudad:</em> {{ activity.city }}</span>
+                        <span><em>Precio:</em> {{ activity.price }} €</span>
+                        <span><em>Recomendación:</em> <strong>{{ activity.recommendation_rate }}%</strong></span>
+                        <span><em>Excelencia:</em> {{ activity.has_badge_excellence|yesno:"Sí,No" }}</span>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No se encontraron resultados.</p>
+        {% endif %}
+    </div>
 </body>
 </html>
