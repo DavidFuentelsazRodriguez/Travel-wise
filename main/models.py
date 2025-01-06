@@ -5,13 +5,13 @@ from django.core.validators import MinValueValidator, MaxValueValidator
     
 class City(models.Model):
     id = models.BigAutoField(primary_key=True)
-    name = models.CharField(max_length=100, unique=True)
+    name = models.CharField(unique=True)
     
     def __str__(self):
         return self.name
     
 class Activity(models.Model):
-    name = models.CharField(max_length=100)
+    name = models.CharField()
     description = models.CharField()
     price = models.FloatField()
     city = models.ForeignKey(

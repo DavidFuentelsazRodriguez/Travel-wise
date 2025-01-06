@@ -22,8 +22,8 @@
                         <span><em>Descripción:</em> {{ activity.description }}</span>
                         <span><em>Ciudad:</em> {{ activity.city }}</span>
                         <span><em>Precio:</em> {{ activity.price }} €</span>
-                        <span><em>Recomendación:</em> <strong>{{ activity.recommendation_rate }}%</strong></span>
-                        <span><em>Excelencia:</em> {{ activity.has_badge_excellence|yesno:"Sí,No" }}</span>
+                        <span><em>Recomendación:</em>{{ activity.recommendation_rate }}%</span>
+                        <span><em>Excelencia:</em><strong>{{ activity.has_badge_excellence|yesno:"Sí,No" }}</strong></span>
                     </li>
                 {% endfor %}
             </ul>
